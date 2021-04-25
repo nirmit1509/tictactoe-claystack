@@ -43,3 +43,46 @@ This command will deploy smart contracts using Ganache Accounts. --reset flag wi
 This will start the development server and will listen on port 3005 on your local computer as configured in package.json file.
 
 7. Import your Ganache accounts into MetaMask and connect those accounts with this application.
+
+
+
+
+PROJECT SCREENSHOTS:
+
+1. Smart Contract deployed using 'truffle migrate'
+
+
+2. Initial balance of accounts after deploying contract
+
+
+3. Connecting Admin to TicTacToe application interface using MetaMask extension after importing the account.
+
+
+4. Similarly connected 2 players into MetaMask.
+
+
+5. Player 1 starting game with a bet of 5 Ethers.
+
+
+6. Details updated after initializing game.
+
+
+7. Player 2 now click on Start_Play to start the game by betting same bet money.
+
+
+8. Game has been started with empty board and player 2 will take the first turn.
+
+
+9. Account balance after betting money and before starting play. After this both players will take one turn at a time, until a winner is declared.
+
+
+10. Player 2 takes the winning turn of this game.
+
+
+11. Player 2 is declared winner.
+
+
+12. Admin will now settle the game by returning the bet amount to winner.
+
+
+13. Final Account balance after play ends.
