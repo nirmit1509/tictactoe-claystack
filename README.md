@@ -13,6 +13,9 @@ NOTES/ASSUMPTIONS before playing:
 4. Admin will store all the bet amount and it will be settled once game is over.
 5. After marking a box and confirming transaction if you can't see your mark, just refresh. It might be due to frontend code state update issue.
 
+READ 'Contract_description.md' in order to get details of Smart Contract and its logic.
+Ps: Smart Contract is written in a self-explanatory fashion.
+
 
 
 Approach on how winner is decided:

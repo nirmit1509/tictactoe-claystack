@@ -16,34 +16,37 @@ contract TicTacToe {
         uint movesCount;              // will be initialized to 0 at time of initialization
         address lastMoveBy;           // will be initialized to the one initializing game, so that second player get first turn
         address payable winner;
-        bool gameOver;
-        bool isSettled;
+        bool gameOver;                  // initialized with false
+        bool isSettled;                 // initialized with false
     }
 
     uint public gameCount = 0;
     mapping(uint => Game) public games;
 
+    // This function takes betAmount in ether and initialize a new game
     function initializeGame (uint _bet) public payable {
         require(admin!=msg.sender, "Contract Owner cannot start or play a game.");
         require(_bet > 0, "Invalid bet amount.");
         gameCount ++;
-        games[gameCount] = Game(gameCount, payable(msg.sender), payable(address(0)), 
-                                new uint8[](9), _bet, 0, msg.sender, 
-                                payable(address(0)), false, false
-                            );
-        admin.transfer(msg.value);
+        games[gameCount] = Game(gameCount, payable(msg.sender), payable(address(0)), new uint8[](9), 
+                                _bet, 0, msg.sender, payable(address(0)), false, false );
+        admin.transfer(msg.value); // bet money is transferred to admin (contract deployer)
     }
+
+    // This view function returns the game board for particular game ID
     function getBoard(uint _gameId) public view returns(uint8[] memory board) {
         require(_gameId<=gameCount, "Invalid Game ID.");
         Game memory g = games[_gameId];
         return g.gameBoard;
     }
 
+    // This function takes gameId as argument and starts tic-tac-toe game
     function startPlay (uint _gameId) public payable {
         require(admin!=msg.sender, "Contract Owner cannot start or play a game.");
         require(_gameId<=gameCount, "Invalid Game ID.");
         Game storage g = games[_gameId];
         require(g.player1!=msg.sender, "You are already player 1.");
+        require(g.movesCount==0, "Game already Begin");
         require(g.gameOver==false, "Game already concluded!");
         g.player2 = payable(msg.sender);
         admin.transfer(msg.value);
@@ -68,11 +71,13 @@ contract TicTacToe {
                 g.gameOver = true;
             }
         }
+        // if movecount is already 9 and no winner is declared, then the game end in a draw
         if(g.movesCount==9) {
             g.gameOver = true;
         }
     }
 
+    // This private function checks whether the player who run the last move is winner or not ?
     function isWinner(uint _gameId, uint8 _playerMove) private view returns(bool) {
         uint8[3][8] memory winningFilters = [
             [0,1,2],[3,4,5],[6,7,8],  // rows
@@ -94,6 +99,7 @@ contract TicTacToe {
         return false;
     }
 
+    // This function allows admin to return the bet amount once the game is over and to settle the ethers conditionally
     function settleGame(uint _id) public payable {
         require(admin==msg.sender, "Only Contract Owner can settle game");
         require(_id<=gameCount, "Invalid Game ID.");
