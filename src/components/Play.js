@@ -39,7 +39,7 @@ function Play({ web3, account, contract, games, isAdmin, updateList }) {
     }
     
     return (
-        currGame 
+        currGame && board
         ?
         <div>
             <p>Player 1: {currGame.player1} (O)</p>

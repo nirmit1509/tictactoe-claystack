@@ -1,68 +1,33 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Requirements:
+1. NodeJs
+2. NPM package manager
+3. Truffle module installed globally
+4. Ganache Tool (Private blockchain for free accounts with fake ethers)
+5. MetaMask chrome extension to confirm transactions.
 
-## Available Scripts
 
-In the project directory, you can run:
+NOTES/ASSUMPTIONS before playing:
+1. In case of 2 players P1 and P2, if P1 initializes the game then P2 will have the first turn.
+2. No player can take 2 turns consecutively. It will raise error in metamask wallet before confirmation.
+3. The Contract deployer aka Admin can neither start a play nor initialize one.
+4. Admin will store all the bet amount and it will be settled once game is over.
+5. After marking a box and confirming transaction if you can't see your mark, just refresh. It might be due to frontend code state update issue.
 
-### `npm start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Approach on how winner is decided:
+It is a normal tic tac toe game, so if a player gets any row, column or diagonal with his mark before the other player, he is declared winner. In case the total moves by both player reaches 9 and no one won till that point, the game is over and is declared a DRAW.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+How to run this code ?
+Step 1: git clone this repository and cd into the folder.
+Step 2. Run 'npm install' in order to install all dependencies from package.json file.
+Step 3: Open Ganache Desktop app and confirm that port used is same as that defined in truffle-config.js
+Step 4: truffle compile
+This command will compile the solidity smart contracts in 'contracts' folder of this directory.
+Step 5: truffle migrate --reset
+This command will deploy smart contracts using Ganache Accounts. --reset flag will override abis if already generated.
+Step 6: npm start
+This will start the development server and will listen on port 3005 on your local computer as configured in package.json file.
+Step 7: Import your Ganache accounts into MetaMask and connect those accounts with this application.
