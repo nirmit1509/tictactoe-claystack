@@ -27,19 +27,19 @@ It is a normal tic tac toe game, so if a player gets any row, column or diagonal
 
 How to run this code ?
 
-1. git clone this repository and cd into the folder.
+1. Git clone this repository and cd into the folder.
 
 2. Run 'npm install' in order to install all dependencies from package.json file.
 
 3. Open Ganache Desktop app and confirm that port used is same as that defined in truffle-config.js
 
-4. truffle compile
+4. 'truffle compile' 
 This command will compile the solidity smart contracts in 'contracts' folder of this directory.
 
-5. truffle migrate --reset
+5. 'truffle migrate --reset' 
 This command will deploy smart contracts using Ganache Accounts. --reset flag will override abis if already generated.
 
-6. npm start
+6. 'npm start' 
 This will start the development server and will listen on port 3005 on your local computer as configured in package.json file.
 
 7. Import your Ganache accounts into MetaMask and connect those accounts with this application.
