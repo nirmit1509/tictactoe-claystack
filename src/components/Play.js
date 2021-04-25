@@ -5,8 +5,7 @@ function Play({ web3, account, contract, games, isAdmin, updateList }) {
 
     const {game_id} = useParams();
     const [board, setBoard] = useState([]);
-    const [currGame, setCurrGame] = useState({})
-    const [loading, setLoading] = useState(false);
+    const [currGame, setCurrGame] = useState({});
     const [refresh, setRefresh] = useState(0);
 
      const marks = {
@@ -16,17 +15,16 @@ function Play({ web3, account, contract, games, isAdmin, updateList }) {
      }
 
     async function fetchBoard() {
-        setLoading(true);
         let game_board = []
         game_board = await contract.methods.getBoard(game_id).call()
         setBoard(game_board);
         const game = await contract.methods.games(game_id).call()
         setCurrGame(game)
-        setLoading(false);
     }
 
     useEffect(() => {
         fetchBoard()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refresh]);
 
     const playMove = (event, pos) => {
